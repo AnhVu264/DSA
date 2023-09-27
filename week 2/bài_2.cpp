@@ -17,23 +17,50 @@ class Node
 Node* Insert(Node* head, int positon, int data_)
 {
     Node* curr = head;
-    Node* newnode = new Node(data);
-    
-    if (position == 1)
-    {
-        newnode -> next = head;
-        return newnode;
+    Node* prev = nullptr;
+    Node* newnode = new Node(data_);
+
+    if (head == nullptr){
+        newnode = head;
+        return head;
     }
-    
-    for (int i = 0; i < position - 1; i++)
-    {
+
+    int i = 0;
+    while (curr != nullptr){
+        if (positon == i){
+            break;
+        }
+        prev = curr;
+        curr = curr -> next;
+        i++;
+    }
+    prev -> next = newnode;
+    newnode -> next = curr;
+    return head;
+}
+
+void printNode(Node* head){
+    Node* curr = head;
+    while (curr != nullptr){
+        cout << curr -> data << " ";
         curr = curr -> next;
     }
-    
-    if (curr == nullptr)
-        return head;
-    
-    newnode -> next = curr -> next;
-    curr -> next = newnode;
-        
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    Node* head = nullptr;
+    for (int i = 1; i <= n; i++){
+        string s;
+        cin >> s;
+        if (s == "insert"){
+            int position, data;
+            cin >> position >> data;
+            head = Insert(head, position, data);
+        }
+    }
+    printNode(head);
+    return 0;
 }
