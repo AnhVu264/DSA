@@ -1,0 +1,83 @@
+bài 1:
+*Sắp xếp tăng dần theo BigO:
+- 2^10 : O(1)
+- 4n
+- 3n + 100logn : O(n)
+- 4nlogn + 2n : O(nlogn)
+- nlogn
+- n^2 + 10n : O(n^2)
+- 2^logn
+- n^3 
+- 2^n
+
+bài 2:
+
+
+bài 3:
+int queue[n]
+int front = -1, rear = -1
+
+Function add(value):
+    if (rear = n - 1)
+        cout << "Queue is full"
+    else 
+        rear++
+        queue[rear] = value
+
+Function remove():
+    if (front == rear)
+        cout << "Queue is empty"
+    else
+        front++
+        if (front == rear)
+            front = rear = -1
+
+bài 4:
+Node* temp1 = newNode(value)
+
+Function add(value):
+    temp1 -> next = nullptr
+    if (rear == nullptr)
+        front = rear = temp1
+    else
+        rear -> next = temp1
+        rear = temp1
+    
+Function remove():
+    if (front == nullptr)
+        cout << "queue is empty"
+    else
+        struct Node* temp2 = front
+        front = front -> next
+        free(temp2)
+
+bài 5:
+int arr[n]
+int top = 0
+Function push(value): 
+	arr[top + 1] = value
+	top++
+
+Function pop(value):
+	If(top > 0)
+	    top--
+
+
+bài 6:
+Function push(value):
+    Node* temp = newNode(value)
+    if (top == nullptr) 
+        temp -> next = nullptr
+    else 
+        temp -> next = top
+    top = temp
+
+
+Function pop(value):
+    if (top == nullptr)
+        cout << "Stacl is empty"
+    else
+        Node* temp = top
+        top = temp -> next;
+        free(temp)
+
