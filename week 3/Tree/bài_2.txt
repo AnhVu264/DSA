@@ -1,0 +1,85 @@
+- Draw the binary search tree:
+#include <iostream>
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node* pLeft;
+    struct node* pRight;
+};
+
+typedef struct node NODE;
+typedef NODE* TREE;
+
+void KhoiTaoCay(TREE &t)
+{
+    t = nullptr;
+}
+
+void ThemNodeVaoCay(TREE &t, int x)
+{
+    //nếu cây rỗng
+    if (t == nullptr) {
+        NODE *p = new NODE;
+        p -> data = x;
+        p -> pLeft = nullptr;
+        p -> pRight = nullptr;
+        t = p;
+    }
+    //nếu cây có phần tử
+    else{
+        if (t -> data < x){
+            ThemNodeVaoCay(t -> pRight, x);
+        }
+        else if (t -> data > x){
+            ThemNodeVaoCay(t -> pLeft, x);
+        }
+    }
+}
+
+void duyet_NLF(TREE t)
+{
+    if (t != nullptr){
+        cout << t -> data << " ";
+        duyet_NLF(t -> pLeft);
+        duyet_NLF(t -> pRight);
+    }
+}
+
+void Menu(TREE &t)
+{
+    while (true){
+        cout << "1: Nhap du lieu cay" << endl;
+        cout << "2: Xuat du lieu cay" << endl;
+        cout << "0: Ket thuc" << endl;
+
+        int luachon;
+        cout << "Nhap lua chon:";
+        cin >> luachon;
+
+        if (luachon < 0 || luachon > 2){
+            cout << "Du lieu ko hop le" << endl;
+            system("pause");
+        }
+        else if(luachon == 1){
+            int x;
+            cout << "Nhap du lieu x:";
+            cin >> x;
+            ThemNodeVaoCay(t, x);
+        }
+        else if (luachon == 2){
+            duyet_NLF(t);
+        }
+    }
+}
+
+int main()
+{
+    TREE(t);
+    KhoiTaoCay(t);
+    Menu(t);
+
+    system("pause");
+    return 0;
+}
