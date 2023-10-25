@@ -1,0 +1,68 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+struct Node {
+    int id;
+    int distance;
+    int path_length;
+    Node(int id, int distance, int path_length) : id(id), distance(distance), path_length(path_length) {}
+};
+
+bool operator<(const Node& a, const Node& b) {
+    return a.distance > b.distance;
+}
+
+int find_shortest_path_with_minimum_edges(vector<vector<int>>& graph, int source, int destination) {
+    priority_queue<Node> Q;
+    Q.push(Node(source, 0, 1));
+
+    while (!Q.empty()) {
+        Node node = Q.top();
+        Q.pop();
+
+        if (node.id == destination) {
+            return node.path_length;
+        }
+
+        for (int neighbor : graph[node.id]) {
+            int distance = node.distance + 1;
+            int path_length = node.path_length + 1;
+
+            if (distance < graph[neighbor][0] || (distance == graph[neighbor][0] && path_length < graph[neighbor][1])) {
+                graph[neighbor][0] = distance;
+                graph[neighbor][1] = path_length;
+                Q.push(Node(neighbor, distance, path_length));
+            }
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    int n, m, source, destination;
+    cin >> n >> m >> source >> destination;
+
+    vector<vector<int>> graph(n, vector<int>(2, INT_MAX));
+
+    for (int i = 0; i < m; i++) {
+        int x, y;
+        cin >> x >> y;
+        graph[x - 1][0] = 1;
+        graph[x - 1][1] = 1;
+        graph[y - 1][0] = 1;
+        graph[y - 1][1] = 2;
+
+        int path_length = find_shortest_path_with_minimum_edges(graph, source - 1,destination - 1);
+
+        if (path_length == -1) {
+            cout << "No path found." << endl;
+        } else {
+            cout << path_length << endl;
+        }
+    }
+    return 0;
+}
